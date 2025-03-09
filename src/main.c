@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/09 20:52:55 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/09 20:56:04 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	ft_data_fill(t_data *data, int argc, char **argv)
 {
 	data = malloc(sizeof(t_data));
+	if (!data)
+		return (1);
 	if (argc < 5 || argc > 6)
 		return (printf("Invalid number of Arguments\n"), 1);
 	data->n_philo = ft_atoi((const char *) argv[1]);
