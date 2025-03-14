@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/09 20:35:11 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:38:15 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,36 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
+# include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_philo
 {
-	int	id;
+	int				id;
+	int				eat_count;
+	int				status;
+	int				finished;
+	uint64_t		last_meal;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
 }		t_philo;
 
 typedef struct s_data
 {
-	int			n_philo;
-	uint64_t	ttd;
-	uint64_t	tte;
-	uint64_t	tts;
-	int			n_meals;
+	int					n_philo;
+	t_philo				*philos;
+	uint64_t			ttd;
+	uint64_t			tte;
+	uint64_t			tts;
+	int					n_meals;
+	pthread_mutex_t		*forks;
+	pthread_t			*threads;
 }		t_data;
 
+int		main(int argc, char **argv);
+int		ft_init(t_data *data, int argc, char **argv);
+int		ft_args_fill(t_data *data, int argc, char **argv);
+void	ft_place_forks(t_data *data);
+int		ft_init_philos(t_data *data);
+int		ft_alloc_data(t_data *data);
 #endif
