@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/14 20:47:11 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:56:08 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 	data->tts = (uint64_t) ft_atoi((const char *) argv[3]);
 	if (data->tts <= 0)
 		return (printf("Wrong Time to Sleep\n"), 1);
-	if (argc == 5)
+	if (argc == 6)
 	{
 		data->n_meals = ft_atoi((const char *) argv[4]);
 		if (data->n_meals <= 0)
