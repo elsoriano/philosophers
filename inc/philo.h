@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/14 20:38:15 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:25:20 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,8 @@ int		ft_args_fill(t_data *data, int argc, char **argv);
 void	ft_place_forks(t_data *data);
 int		ft_init_philos(t_data *data);
 int		ft_alloc_data(t_data *data);
+void	ft_free(t_data *data);
+void	ft_free_threads(t_data *data);
+void	ft_free_philos(t_data *data);
+void	ft_free_forks(t_data *data);
 #endif

@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/17 12:01:55 by rhernand         ###   ########.fr       */
+/*   Created: 2025/03/17 10:55:35 by rhernand          #+#    #+#             */
+/*   Updated: 2025/03/17 11:40:28 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int64_t	ft_timestamp(void)
+void	ft_free_forks(t_data *data)
 {
-	struct timeval	tv;
+	int	i;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	i = 0;
+	while (i < data->n_philo)
+	{
+		pthread_mutex_destroy(&(data->forks[i]));
+		i++;
+	}
+	free(data->forks);
 }
 
-int	main(int argc, char **argv)
+void	ft_free(t_data *data)
 {
-	t_data	data;
-
-	if (ft_init(&data, argc, argv))
-		return (1);
-	if (data.n_philo == 1)
-	{
-		if (usleep(data.ttd))
-			printf("Error in usleep\n");
-		printf("%ld 1 Died\n", ft_timestamp());
-	}
-	ft_free(&data);
-	return (0);
+	free(data->threads);
+	free(data->philos);
+	ft_free_forks(data);
 }
