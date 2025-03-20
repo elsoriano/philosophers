@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/17 11:37:39 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:42:01 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_init_philos(t_data *data)
 		data->philos[i].finished = 0;
 		data->philos[i].id = i + 1;
 		data->philos[i].status = 0;
+		data->philos[i].data = data;
 		i++;
 	}
 	ft_place_forks(data);

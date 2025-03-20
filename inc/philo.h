@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/17 11:25:20 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:07:07 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+struct	s_data;
+
 typedef struct s_philo
 {
 	int				id;
+	struct s_data	*data;
 	int				eat_count;
 	int				status;
 	int				finished;
@@ -52,4 +55,6 @@ void	ft_free(t_data *data);
 void	ft_free_threads(t_data *data);
 void	ft_free_philos(t_data *data);
 void	ft_free_forks(t_data *data);
+int64_t	ft_timestamp(void);
+void	*ft_routine(void *ph);
 #endif

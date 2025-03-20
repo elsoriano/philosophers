@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/17 12:01:55 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:15:57 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int64_t	ft_timestamp(void)
 
 int	main(int argc, char **argv)
 {
+	int		i;
 	t_data	data;
 
 	if (ft_init(&data, argc, argv))
@@ -31,6 +32,19 @@ int	main(int argc, char **argv)
 		if (usleep(data.ttd))
 			printf("Error in usleep\n");
 		printf("%ld 1 Died\n", ft_timestamp());
+	}
+	else
+	{
+		i = 0;
+		while (i < data.n_philo)
+		{
+			if (pthread_create(&(data.threads[i]), NULL, ft_routine, &(data.philos[i])))
+				printf("Error in pthread_create\n");
+			i++;
+		}
+		i = 0;
+		while (i < data.n_philo)
+			pthread_join(data.threads[i++], NULL);
 	}
 	ft_free(&data);
 	return (0);
