@@ -6,11 +6,70 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/20 15:15:57 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/21 21:36:53 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+int	ft_waitress(t_data *data, int j)
+{
+	while (data->philos[j].finished == 1 && j < data->n_philo)
+		j++;
+	if (j == data->n_philo)
+	{
+		ft_join_threads(data);
+		printf("All Philosophers Eat %d Times\n", data->n_meals);
+		ft_free(data);
+		exit(0);
+	}
+	return (j);
+}
+
+void	ft_checks(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (1)
+	{
+		while (i < data->n_philo)
+		{
+			j = ft_waitress(data, j);
+			if (data->philos[i].last_meal + data->ttd < ft_timestamp() && \
+					data->philos[i].eating == 0)
+			{
+				ft_join_threads(data);
+				printf("%ld %d died\n", ft_timestamp(), i + 1);
+				ft_free(data);
+				exit(EXIT_SUCCESS);
+			}
+			usleep(1000);
+			i++;
+		}
+		i = 0;
+	}
+}
+
+void	ft_init_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->n_philo)
+	{
+		if (pthread_create(&(data->threads[i]), NULL, \
+			ft_routine, &(data->philos[i])))
+		{
+			printf("Error in pthread_create\n");
+			ft_free(data);
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
 
 int64_t	ft_timestamp(void)
 {
@@ -34,18 +93,7 @@ int	main(int argc, char **argv)
 		printf("%ld 1 Died\n", ft_timestamp());
 	}
 	else
-	{
-		i = 0;
-		while (i < data.n_philo)
-		{
-			if (pthread_create(&(data.threads[i]), NULL, ft_routine, &(data.philos[i])))
-				printf("Error in pthread_create\n");
-			i++;
-		}
-		i = 0;
-		while (i < data.n_philo)
-			pthread_join(data.threads[i++], NULL);
-	}
-	ft_free(&data);
+		ft_init_threads(&data);
+	ft_checks(&data);
 	return (0);
 }
