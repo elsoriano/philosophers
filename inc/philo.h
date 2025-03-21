@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/20 15:07:07 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:13:23 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_philo
 	int				status;
 	int				finished;
 	uint64_t		last_meal;
-	pthread_mutex_t	*r_fork;
-	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*first_fork;
+	pthread_mutex_t	*second_fork;
 }		t_philo;
 
 typedef struct s_data
@@ -43,6 +43,7 @@ typedef struct s_data
 	int					n_meals;
 	pthread_mutex_t		*forks;
 	pthread_t			*threads;
+	pthread_mutex_t		lock;
 }		t_data;
 
 int		main(int argc, char **argv);

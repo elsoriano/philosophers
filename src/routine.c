@@ -6,42 +6,44 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/20 15:46:38 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:20:58 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	ft_eat(t_philo *philo)
+{
+	pthread_mutex_lock(philo->first_fork);
+	pthread_mutex_lock(philo->second_fork);
+	pthread_mutex_lock(&(philo->data->lock));
+	printf("%ld %d took a fork\n", ft_timestamp(), philo->id);
+	printf("%ld %d took a fork\n", ft_timestamp(), philo->id);
+	printf("%ld %d is eating\n", ft_timestamp(), philo->id);
+	pthread_mutex_unlock(&(philo->data->lock));
+	usleep(philo->data->tte);
+	philo->eat_count += 1;
+	philo->last_meal = ft_timestamp();
+	if (philo->eat_count == philo->data->n_meals)
+		philo->finished = 1;
+	pthread_mutex_unlock(philo->first_fork);
+	pthread_mutex_unlock(philo->second_fork);
+	pthread_mutex_lock(&(philo->data->lock));
+	printf("%ld %d left a fork\n", ft_timestamp(), philo->id);
+	printf("%ld %d left a fork\n", ft_timestamp(), philo->id);
+	printf("%ld %d is sleeping\n", ft_timestamp(), philo->id);
+	usleep(philo->data->tts);
+	pthread_mutex_unlock(&(philo->data->lock));
+}
 
 void	*ft_routine(void *ph)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *) ph;
-	if (philo->id % 2 == 0)
+	while (1)
 	{
-		pthread_mutex_lock(philo->l_fork);
-		printf("left fork locked\n");
-		pthread_mutex_lock(philo->r_fork);
-		printf("right fork locked\n");
-		printf("%ld %d is eating\n", ft_timestamp(), philo->id);
-		usleep(philo->data->tte);
-		pthread_mutex_unlock(philo->l_fork);
-		printf("left fork unlocked\n");
-		pthread_mutex_unlock(philo->r_fork);
-		printf("right fork unlocked\n");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->r_fork);
-		printf("right fork locked\n");
-		pthread_mutex_lock(philo->l_fork);
-		printf("left fork locked\n");
-		printf("%ld %d is eating\n", ft_timestamp(), philo->id);
-		usleep(philo->data->tte);
-		pthread_mutex_unlock(philo->r_fork);
-		printf("right fork unlocked\n");
-		pthread_mutex_unlock(philo->l_fork);
-		printf("left fork unlocked\n");
+		ft_eat(philo);
 	}
 	return (NULL);
 }

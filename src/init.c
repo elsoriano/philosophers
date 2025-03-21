@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/20 14:42:01 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:25:24 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@ void	ft_place_forks(t_data *data)
 
 	if (!data->philos || !data->forks)
 		return ;
-	data->philos[0].r_fork = &(data->forks[0]);
-	data->philos[0].l_fork = &(data->forks[data->n_philo - 1]);
+	data->philos[0].first_fork = &(data->forks[0]);
+	data->philos[0].second_fork = &(data->forks[data->n_philo - 1]);
 	i = 1;
 	while (i < data->n_philo)
 	{
-		data->philos[i].r_fork = &(data->forks[i]);
-		data->philos[i].l_fork = &(data->forks[i - 1]);
+		if (i % 2 != 0)
+		{
+			data->philos[i].second_fork = &(data->forks[i]);
+			data->philos[i].first_fork = &(data->forks[i - 1]);
+		}
+		else
+		{
+			data->philos[i].first_fork = &(data->forks[i]);
+			data->philos[i].second_fork = &(data->forks[i - 1]);
+		}
 		i++;
 	}
 }
@@ -97,6 +105,7 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 		if (data->n_meals <= 0)
 			return (printf("Wrong No of Meals\n"), 1);
 	}
+	pthread_mutex_init(&(data->lock), NULL);
 	return (0);
 }
 
