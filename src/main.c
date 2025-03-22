@@ -6,11 +6,24 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 11:35:13 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:40:36 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void	ft_forensics(t_philo *philo)
+{
+	if (philo->last_meal + philo->data->ttd < ft_timestamp() && \
+					philo->eating == 0)
+	{
+		pthread_mutex_lock(&(philo->data->lock));
+		ft_detach_threads(philo->data);
+		printf("%ld %d died\n", ft_timestamp(), philo->id);
+		ft_free(philo->data);
+		exit(EXIT_SUCCESS);
+	}
+}
 
 int	ft_waitress(t_data *data, int j)
 {
@@ -38,17 +51,10 @@ void	ft_checks(t_data *data)
 		while (i < data->n_philo)
 		{
 			j = ft_waitress(data, j);
-			if (data->philos[i].last_meal + data->ttd < ft_timestamp() && \
-					data->philos[i].eating == 0)
-			{
-				ft_join_threads(data);
-				printf("%ld %d died\n", ft_timestamp(), i + 1);
-				ft_free(data);
-				exit(EXIT_SUCCESS);
-			}
-			ft_usleep(10);
+			ft_forensics(&(data->philos[i]));
 			i++;
 		}
+		ft_usleep(10);
 		i = 0;
 	}
 }
