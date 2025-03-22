@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:55:35 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 12:44:36 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:11:31 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_detach_threads(t_data *data)
 	{
 		if (pthread_detach(data->threads[i]))
 		{
-			printf("Error Detaching Threads");
+			printf("Error Detaching Threads\n");
 			ft_free(data);
 			exit(1);
 		}
