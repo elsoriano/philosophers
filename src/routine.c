@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 20:08:26 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 21:44:58 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void	*ft_routine(void *ph)
 	t_philo	*philo;
 
 	philo = (t_philo *) ph;
-	while (1)
+	while (!ft_forensics(philo->data))
 	{
-		ft_forensics(philo);
 		ft_eat(philo);
 		if (philo->eat_count == philo->data->n_meals)
 		{

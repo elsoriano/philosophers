@@ -38,7 +38,7 @@ fclean: clean
 re: fclean all
 
 debug:
-	gcc src/*.c inc/libft/libft.a -g -fsanitize=address -Wall -Wextra -Werror -o philo
+	clang src/*.c inc/libft/libft.a -g -fsanitize=thread -pthread -Wall -Wextra -Werror -o philo
 
 .PHONY: clean fclean re debug
 

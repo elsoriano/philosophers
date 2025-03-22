@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 10:55:35 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 20:11:31 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 20:47:13 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	ft_detach_threads(t_data *data)
 	i = 0;
 	while (i < data->n_philo)
 	{
-		if (pthread_detach(data->threads[i]))
+		if (data->threads[i] != 0)
 		{
-			printf("Error Detaching Threads\n");
-			ft_free(data);
-			exit(1);
+			if (pthread_detach(data->threads[i]))
+			{
+				printf("Error Detaching Threads\n");
+				ft_free(data);
+				exit(1);
+			}
 		}
 		i++;
 	}
