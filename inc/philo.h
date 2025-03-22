@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/21 21:37:30 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:30:52 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,20 @@ typedef struct s_data
 	pthread_mutex_t		lock;
 }		t_data;
 
-int		main(int argc, char **argv);
-int		ft_init(t_data *data, int argc, char **argv);
-int		ft_args_fill(t_data *data, int argc, char **argv);
-void	ft_place_forks(t_data *data);
-int		ft_init_philos(t_data *data);
-int		ft_alloc_data(t_data *data);
-void	ft_free(t_data *data);
-void	ft_free_forks(t_data *data);
-int64_t	ft_timestamp(void);
-void	*ft_routine(void *ph);
-void	ft_eat(t_philo *philo);
-void	ft_init_threads(t_data *data);
-void	ft_join_threads(t_data *data);
-int		ft_waitress(t_data *data, int j);
-void	ft_checks(t_data *data);
+int			main(int argc, char **argv);
+int			ft_init(t_data *data, int argc, char **argv);
+int			ft_args_fill(t_data *data, int argc, char **argv);
+void		ft_place_forks(t_data *data);
+int			ft_init_philos(t_data *data);
+int			ft_alloc_data(t_data *data);
+void		ft_free(t_data *data);
+void		ft_free_forks(t_data *data);
+uint64_t	ft_timestamp(void);
+void		ft_usleep(uint64_t ms);
+void		*ft_routine(void *ph);
+void		ft_eat(t_philo *philo);
+void		ft_init_threads(t_data *data);
+void		ft_join_threads(t_data *data);
+int			ft_waitress(t_data *data, int j);
+void		ft_checks(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/21 21:36:53 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:35:13 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_waitress(t_data *data, int j)
 {
-	while (data->philos[j].finished == 1 && j < data->n_philo)
+	while (j < data->n_philo && data->philos[j].finished == 1)
 		j++;
 	if (j == data->n_philo)
 	{
@@ -46,7 +46,7 @@ void	ft_checks(t_data *data)
 				ft_free(data);
 				exit(EXIT_SUCCESS);
 			}
-			usleep(1000);
+			ft_usleep(10);
 			i++;
 		}
 		i = 0;
@@ -69,19 +69,11 @@ void	ft_init_threads(t_data *data)
 		}
 		i++;
 	}
-}
-
-int64_t	ft_timestamp(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	return ;
 }
 
 int	main(int argc, char **argv)
 {
-	int		i;
 	t_data	data;
 
 	if (ft_init(&data, argc, argv))
