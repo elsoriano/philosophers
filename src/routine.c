@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 12:51:26 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:16:52 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->first_fork);
 	pthread_mutex_lock(philo->second_fork);
+	philo->last_meal = ft_timestamp();
 	pthread_mutex_lock(&(philo->data->lock));
 	printf("%ld %d has taken a fork\n", ft_timestamp(), philo->id);
 	printf("%ld %d has taken a fork\n", ft_timestamp(), philo->id);
@@ -38,7 +39,6 @@ void	ft_eat(t_philo *philo)
 	ft_usleep(philo->data->tte);
 	philo->eating = 0;
 	philo->eat_count += 1;
-	philo->last_meal = ft_timestamp();
 	pthread_mutex_unlock(philo->first_fork);
 	pthread_mutex_unlock(philo->second_fork);
 	return ;
