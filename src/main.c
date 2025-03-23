@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/23 19:16:47 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:45:50 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	ft_forensics(t_data *data)
 
 int	ft_waitress(t_data *data, int j)
 {
+	pthread_mutex_lock(&(data->lock));
 	while (j < data->n_philo && data->philos[j].finished == 1)
 		j++;
+	pthread_mutex_unlock(&(data->lock));
 	if (j == data->n_philo)
 	{
 		ft_join_threads(data);
