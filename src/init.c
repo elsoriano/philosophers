@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 12:44:56 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:30:46 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,23 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 		return (1);
 	if (argc < 5 || argc > 6)
 		return (printf("Invalid number of Arguments\n"), 1);
-	data->n_philo = ft_atoi((const char *) argv[1]);
-	if (data->n_philo <= 0)
+	if (ft_atoi((const char *) argv[1]) <= 0)
 		return (printf("Wrong No of Philosophers\n"), 1);
-	data->ttd = (uint64_t) ft_atoi((const char *) argv[2]);
-	if (data->ttd <= 0)
+	data->n_philo = ft_atoi((const char *) argv[1]);
+	if (ft_atoi((const char *) argv[2]) <= 0)
 		return (printf("Wrong Time to Die\n"), 1);
-	data->tte = (uint64_t) ft_atoi((const char *) argv[3]);
-	if (data->tte <= 0)
+	data->ttd = (uint64_t) ft_atoi((const char *) argv[2]);
+	if (ft_atoi((const char *) argv[3]) <= 0)
 		return (printf("Wrong Time to Eat\n"), 1);
-	data->tts = (uint64_t) ft_atoi((const char *) argv[4]);
-	if (data->tts <= 0)
+	data->tte = (uint64_t) ft_atoi((const char *) argv[3]);
+	if (ft_atoi((const char *) argv[4]) <= 0)
 		return (printf("Wrong Time to Sleep\n"), 1);
+	data->tts = (uint64_t) ft_atoi((const char *) argv[4]);
 	if (argc == 6)
 	{
-		data->n_meals = ft_atoi((const char *) argv[5]);
-		if (data->n_meals <= 0)
+		if (ft_atoi((const char *) argv[5]) <= 0)
 			return (printf("Wrong No of Meals\n"), 1);
+		data->n_meals = ft_atoi((const char *) argv[5]);
 	}
 	pthread_mutex_init(&(data->lock), NULL);
 	return (0);
