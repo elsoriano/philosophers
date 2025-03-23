@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 12:40:36 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:33:44 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int	main(int argc, char **argv)
 		if (usleep(data.ttd))
 			printf("Error in usleep\n");
 		printf("%ld 1 Died\n", ft_timestamp());
+		return (0);
 	}
 	else
 		ft_init_threads(&data);
