@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/22 12:43:02 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:59:49 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_data
 	uint64_t			tte;
 	uint64_t			tts;
 	int					n_meals;
+	int					dead;
 	pthread_mutex_t		*forks;
 	pthread_t			*threads;
 	pthread_t			forensic;
@@ -63,7 +64,7 @@ void		ft_eat(t_philo *philo);
 void		ft_init_threads(t_data *data);
 void		ft_join_threads(t_data *data);
 void		ft_detach_threads(t_data *data);
-void		ft_forensics(t_philo *philo);
+void		ft_forensics(t_data *data);
 int			ft_waitress(t_data *data, int j);
 void		ft_checks(t_data *data);
 #endif

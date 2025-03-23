@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/23 18:30:46 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/23 18:37:49 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 		data->n_meals = ft_atoi((const char *) argv[5]);
 	}
 	pthread_mutex_init(&(data->lock), NULL);
+	data->dead = 0;
 	return (0);
 }
 
