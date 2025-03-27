@@ -16,24 +16,21 @@ HEAD = -I inc
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(MAKE) -C ./inc/libft
-	$(GCC) $(CFLAGS) $(OBJS) -o $(NAME) ./inc/libft/libft.a
+	$(GCC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(OBJS): $(SRCS)
 
 $(OBJSDIR)/%.o: $(SRCSDIR)/%.c | obj
-	$(GCC) $(CFLAGS) -c $< -o $@ $(HEAD)
+	$(GCC) $(CFLAGS) -c $< -o $@ $(HEAD) 
 
 obj:
 	mkdir -p $(OBJSDIR)
 
 clean:
 	rm -rf $(OBJSDIR)
-	$(MAKE) -C ./inc/libft clean
 
 fclean: clean
 	rm -f $(NAME)
-	$(MAKE) -C ./inc/libft fclean
 
 re: fclean all
 

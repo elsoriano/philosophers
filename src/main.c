@@ -6,13 +6,13 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 18:00:53 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:05:16 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_forensics(t_data *data)
+int	ft_forensics(t_data *data)
 {
 	int	i;
 
@@ -26,14 +26,12 @@ void	ft_forensics(t_data *data)
 			data->dead = 1;
 			printf("%ld %d died\n", ft_timestamp(), i + 1);
 			pthread_mutex_unlock(&(data->lock));
-			ft_join_threads(data);
-			ft_free_forks(data);
-			ft_free(data);
-			exit(EXIT_SUCCESS);
+			return (1);
 		}
 		pthread_mutex_unlock(&(data->lock));
 		i++;
 	}
+	return (0);
 }
 
 int	ft_waitress(t_data *data, int j)
@@ -44,10 +42,7 @@ int	ft_waitress(t_data *data, int j)
 	pthread_mutex_unlock(&(data->lock));
 	if (j == data->n_philo)
 	{
-		ft_join_threads(data);
 		printf("All Philosophers Eat %d Times\n", data->n_meals);
-		ft_free(data);
-		exit(0);
 	}
 	return (j);
 }
@@ -60,14 +55,17 @@ void	ft_checks(t_data *data)
 	while (1)
 	{
 		i = ft_waitress(data, i);
-		ft_forensics(data);
-		i++;
+		if (i >= data->n_philo && data->n_meals > 0)
+			return ;
+		if (ft_forensics(data))
+			return ;
 		ft_usleep(10);
 		i = 0;
 	}
+	return ;
 }
 
-void	ft_init_threads(t_data *data)
+int	ft_init_threads(t_data *data)
 {
 	int	i;
 
@@ -78,29 +76,32 @@ void	ft_init_threads(t_data *data)
 			ft_routine, &(data->philos[i])))
 		{
 			printf("Error in pthread_create\n");
-			ft_free(data);
-			exit(EXIT_FAILURE);
+			return (1);
 		}
 		i++;
 	}
-	return ;
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
-	if (ft_init(&data, argc, argv))
-		return (1);
-	if (data.n_philo == 1)
+	if (1 == ft_atoi(argv[1]))
 	{
-		if (usleep(data.ttd))
-			printf("Error in usleep\n");
+		ft_usleep((uint64_t) ft_atoi(argv[2]));
 		printf("%ld 1 Died\n", ft_timestamp());
 		return (0);
 	}
+	if (ft_init(&data, argc, argv))
+		return (1);
 	else
-		ft_init_threads(&data);
+	{
+		if (ft_init_threads(&data))
+			return (1);
+	}
 	ft_checks(&data);
+	ft_join_threads(&data);
+	ft_free(&data);
 	return (0);
 }
