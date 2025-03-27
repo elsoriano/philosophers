@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/23 19:45:50 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:38:20 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_forensics(t_data *data)
 			printf("%ld %d died\n", ft_timestamp(), i + 1);
 			pthread_mutex_unlock(&(data->lock));
 			ft_join_threads(data);
-			ft_free_forks(data);
 			ft_free(data);
 			exit(EXIT_SUCCESS);
 		}
