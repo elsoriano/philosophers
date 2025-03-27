@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/23 19:40:34 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:29:11 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ int	ft_alloc_data(t_data *data)
 
 int	ft_args_fill(t_data *data, int argc, char **argv)
 {
-	if (!data)
-		return (1);
 	if (argc < 5 || argc > 6)
 		return (printf("Invalid number of Arguments\n"), 1);
 	if (ft_atoi((const char *) argv[1]) <= 0)
@@ -100,6 +98,7 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 	if (ft_atoi((const char *) argv[4]) <= 0)
 		return (printf("Wrong Time to Sleep\n"), 1);
 	data->tts = (uint64_t) ft_atoi((const char *) argv[4]);
+	data->n_meals = 0;
 	if (argc == 6)
 	{
 		if (ft_atoi((const char *) argv[5]) <= 0)
@@ -113,6 +112,8 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 
 int	ft_init(t_data *data, int argc, char **argv)
 {
+	if (!data)
+		return (1);
 	if (ft_args_fill(data, argc, argv))
 		return (1);
 	if (ft_alloc_data(data))

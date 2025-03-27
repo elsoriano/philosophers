@@ -22,7 +22,7 @@ $(NAME): $(OBJS)
 $(OBJS): $(SRCS)
 
 $(OBJSDIR)/%.o: $(SRCSDIR)/%.c | obj
-	$(GCC) $(CFLAGS) -c $< -o $@ $(HEAD)
+	$(GCC) $(CFLAGS) -c $< -o $@ $(HEAD) 
 
 obj:
 	mkdir -p $(OBJSDIR)
