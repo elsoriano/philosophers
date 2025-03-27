@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 19:28:11 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 20:41:29 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_sleep(t_philo *philo)
 
 void	ft_eat(t_philo *philo)
 {
+	if (philo->id % 2 == 0 && philo->eat_count == 0)
+		ft_usleep(1);
 	pthread_mutex_lock(philo->first_fork);
 	pthread_mutex_lock(philo->second_fork);
 	pthread_mutex_lock(&(philo->data->lock));
