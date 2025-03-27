@@ -6,13 +6,12 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:00:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/23 18:59:49 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 14:50:47 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-# include "libft/inc/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdint.h>
@@ -67,4 +66,6 @@ void		ft_detach_threads(t_data *data);
 void		ft_forensics(t_data *data);
 int			ft_waitress(t_data *data, int j);
 void		ft_checks(t_data *data);
+int			ft_atoi(const char *str);
+
 #endif
