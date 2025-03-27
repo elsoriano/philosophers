@@ -6,13 +6,13 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 14:38:20 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:49:03 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	ft_forensics(t_data *data)
+int	ft_forensics(t_data *data)
 {
 	int	i;
 
@@ -27,12 +27,12 @@ void	ft_forensics(t_data *data)
 			printf("%ld %d died\n", ft_timestamp(), i + 1);
 			pthread_mutex_unlock(&(data->lock));
 			ft_join_threads(data);
-			ft_free(data);
-			exit(EXIT_SUCCESS);
+			return (1);
 		}
 		pthread_mutex_unlock(&(data->lock));
 		i++;
 	}
+	return (0);
 }
 
 int	ft_waitress(t_data *data, int j)
@@ -45,8 +45,6 @@ int	ft_waitress(t_data *data, int j)
 	{
 		ft_join_threads(data);
 		printf("All Philosophers Eat %d Times\n", data->n_meals);
-		ft_free(data);
-		exit(0);
 	}
 	return (j);
 }
@@ -59,14 +57,18 @@ void	ft_checks(t_data *data)
 	while (1)
 	{
 		i = ft_waitress(data, i);
-		ft_forensics(data);
+		if (i >= data->n_meals)
+			break ;
+		if (ft_forensics(data))
+			break ;
 		i++;
 		ft_usleep(10);
 		i = 0;
 	}
+	return ;
 }
 
-void	ft_init_threads(t_data *data)
+int	ft_init_threads(t_data *data)
 {
 	int	i;
 
@@ -77,12 +79,11 @@ void	ft_init_threads(t_data *data)
 			ft_routine, &(data->philos[i])))
 		{
 			printf("Error in pthread_create\n");
-			ft_free(data);
-			exit(EXIT_FAILURE);
+			return (1);
 		}
 		i++;
 	}
-	return ;
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -99,7 +100,11 @@ int	main(int argc, char **argv)
 		return (0);
 	}
 	else
-		ft_init_threads(&data);
+	{
+		if (ft_init_threads(&data))
+			return (1);
+	}
 	ft_checks(&data);
+	ft_free(&data);
 	return (0);
 }
