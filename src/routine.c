@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 18:31:58 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:28:11 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,11 @@ void	*ft_routine(void *ph)
 	t_philo	*philo;
 
 	philo = (t_philo *) ph;
-	pthread_mutex_lock(&(philo->data->lock));
-	while (!philo->data->dead)
+	while (1)
 	{
+		pthread_mutex_lock(&(philo->data->lock));
+		if (philo->data->dead)
+			return (pthread_mutex_unlock(&(philo->data->lock)), NULL);
 		pthread_mutex_unlock(&(philo->data->lock));
 		ft_eat(philo);
 		pthread_mutex_lock(&(philo->data->lock));
@@ -82,8 +84,6 @@ void	*ft_routine(void *ph)
 		else
 			pthread_mutex_unlock(&(philo->data->lock));
 		ft_sleep(philo);
-		pthread_mutex_lock(&(philo->data->lock));
 	}
-	pthread_mutex_unlock(&(philo->data->lock));
 	return (NULL);
 }

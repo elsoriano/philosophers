@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 18:38:23 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:02:22 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ int	ft_forensics(t_data *data)
 	i = 0;
 	while (i < data->n_philo)
 	{
+		pthread_mutex_lock(&(data->lock));
 		if (data->philos[i].last_meal + data->ttd < ft_timestamp() && \
 					data->philos[i].eating == 0)
 		{
 			data->dead = 1;
 			printf("%ld %d died\n", ft_timestamp(), i + 1);
+			pthread_mutex_unlock(&(data->lock));
 			return (1);
 		}
+		pthread_mutex_unlock(&(data->lock));
 		i++;
 	}
 	return (0);
@@ -33,8 +36,10 @@ int	ft_forensics(t_data *data)
 
 int	ft_waitress(t_data *data, int j)
 {
+	pthread_mutex_lock(&(data->lock));
 	while (j < data->n_philo && data->philos[j].finished == 1)
 		j++;
+	pthread_mutex_unlock(&(data->lock));
 	if (j == data->n_philo)
 	{
 		printf("All Philosophers Eat %d Times\n", data->n_meals);
@@ -49,19 +54,11 @@ void	ft_checks(t_data *data)
 	i = 0;
 	while (1)
 	{
-		pthread_mutex_lock((&data->lock));
 		i = ft_waitress(data, i);
 		if (i >= data->n_meals && data->n_meals > 0)
-		{
-			pthread_mutex_unlock((&data->lock));
 			break ;
-		}
 		if (ft_forensics(data))
-		{
-			pthread_mutex_unlock((&data->lock));
 			break ;
-		}
-		pthread_mutex_unlock((&data->lock));
 		ft_usleep(10);
 		i = 0;
 	}
