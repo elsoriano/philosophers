@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 19:41:14 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:48:11 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ int	main(int argc, char **argv)
 
 	if (1 == ft_atoi(argv[1]))
 	{
-		if (usleep(ft_atoi(argv[2])))
-			printf("Error in usleep\n");
+		ft_usleep((uint64_t) ft_atoi(argv[2]));
 		printf("%ld 1 Died\n", ft_timestamp());
 		return (0);
 	}
