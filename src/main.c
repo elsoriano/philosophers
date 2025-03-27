@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 19:02:22 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/27 19:41:14 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void	ft_checks(t_data *data)
 	while (1)
 	{
 		i = ft_waitress(data, i);
-		if (i >= data->n_meals && data->n_meals > 0)
-			break ;
+		if (i >= data->n_philo && data->n_meals > 0)
+			return ;
 		if (ft_forensics(data))
-			break ;
+			return ;
 		ft_usleep(10);
 		i = 0;
 	}
