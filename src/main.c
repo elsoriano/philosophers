@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 19:48:11 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:13:25 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	if (argc < 5 || argc > 6)
+		return (printf("Invalid number of Arguments\n"), 1);
 	if (1 == ft_atoi(argv[1]))
 	{
 		ft_usleep((uint64_t) ft_atoi(argv[2]));
