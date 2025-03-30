@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/28 14:13:25 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:54:16 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	ft_forensics(t_data *data)
 	while (i < data->n_philo)
 	{
 		pthread_mutex_lock(&(data->lock));
-		if (data->philos[i].last_meal + data->ttd < ft_timestamp() && \
+		if (data->philos[i].last_meal + data->ttd < ft_timestamp(data) && \
 					data->philos[i].eating == 0)
 		{
 			data->dead = 1;
-			printf("%ld %d died\n", ft_timestamp(), i + 1);
+			printf("%ld %d died\n", ft_timestamp(data), i + 1);
 			pthread_mutex_unlock(&(data->lock));
 			return (1);
 		}
@@ -59,7 +59,7 @@ void	ft_checks(t_data *data)
 			return ;
 		if (ft_forensics(data))
 			return ;
-		ft_usleep(10);
+		ft_usleep(10, data);
 		i = 0;
 	}
 	return ;
@@ -91,8 +91,8 @@ int	main(int argc, char **argv)
 		return (printf("Invalid number of Arguments\n"), 1);
 	if (1 == ft_atoi(argv[1]))
 	{
-		ft_usleep((uint64_t) ft_atoi(argv[2]));
-		printf("%ld 1 Died\n", ft_timestamp());
+		usleep((uint64_t) ft_atoi(argv[2]));
+		printf("%ld 1 Died\n", ft_timestamp(&data));
 		return (0);
 	}
 	if (ft_init(&data, argc, argv))

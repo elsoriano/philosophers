@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 19:24:22 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 20:34:57 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:46:57 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].eating = 0;
 		data->philos[i].data = data;
-		data->philos[i].last_meal = ft_timestamp();
+		data->philos[i].last_meal = ft_timestamp(data);
 		i++;
 	}
 	ft_place_forks(data);
@@ -112,8 +112,12 @@ int	ft_args_fill(t_data *data, int argc, char **argv)
 
 int	ft_init(t_data *data, int argc, char **argv)
 {
+	struct timeval	tv;
+
 	if (!data)
 		return (1);
+	gettimeofday(&tv, NULL);
+	data->start = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	if (ft_args_fill(data, argc, argv))
 		return (1);
 	if (ft_alloc_data(data))

@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/27 20:41:29 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/03/30 16:55:43 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_sleep(t_philo *philo)
 	pthread_mutex_lock(&(philo->data->lock));
 	if (!philo->data->dead)
 	{
-		printf("%ld %d is sleeping\n", ft_timestamp(), philo->id);
+		printf("%ld %d is sleeping\n", ft_timestamp(philo->data), philo->id);
 		pthread_mutex_unlock(&(philo->data->lock));
 	}
 	else
@@ -25,11 +25,11 @@ void	ft_sleep(t_philo *philo)
 		pthread_mutex_unlock(&(philo->data->lock));
 		return ;
 	}
-	ft_usleep(philo->data->tts);
+	ft_usleep(philo->data->tts, philo->data);
 	pthread_mutex_lock(&(philo->data->lock));
 	if (!philo->data->dead)
 	{
-		printf("%ld %d is thinking\n", ft_timestamp(), philo->id);
+		printf("%ld %d is thinking\n", ft_timestamp(philo->data), philo->id);
 		pthread_mutex_unlock(&(philo->data->lock));
 	}
 	else
@@ -40,20 +40,22 @@ void	ft_sleep(t_philo *philo)
 void	ft_eat(t_philo *philo)
 {
 	if (philo->id % 2 == 0 && philo->eat_count == 0)
-		ft_usleep(1);
+		usleep(1);
 	pthread_mutex_lock(philo->first_fork);
 	pthread_mutex_lock(philo->second_fork);
 	pthread_mutex_lock(&(philo->data->lock));
 	if (!philo->data->dead)
 	{
-		philo->last_meal = ft_timestamp();
-		printf("%ld %d has taken a fork\n", ft_timestamp(), philo->id);
-		printf("%ld %d has taken a fork\n", ft_timestamp(), philo->id);
-		printf("%ld %d is eating\n", ft_timestamp(), philo->id);
+		philo->last_meal = ft_timestamp(philo->data);
+		printf("%ld %d has taken a fork\n", \
+			ft_timestamp(philo->data), philo->id);
+		printf("%ld %d has taken a fork\n", \
+			ft_timestamp(philo->data), philo->id);
+		printf("%ld %d is eating\n", ft_timestamp(philo->data), philo->id);
 		philo->eating = 1;
 	}
 	pthread_mutex_unlock(&(philo->data->lock));
-	ft_usleep(philo->data->tte);
+	ft_usleep(philo->data->tte, philo->data);
 	pthread_mutex_lock(&(philo->data->lock));
 	philo->eating = 0;
 	philo->eat_count += 1;
@@ -79,7 +81,7 @@ void	*ft_routine(void *ph)
 		if (philo->eat_count == philo->data->n_meals && !philo->data->dead)
 		{
 			philo->finished = 1;
-			printf("%ld %d finished\n", ft_timestamp(), philo->id);
+			printf("%ld %d finished\n", ft_timestamp(philo->data), philo->id);
 			pthread_mutex_unlock(&(philo->data->lock));
 			return (NULL);
 		}
