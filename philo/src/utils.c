@@ -6,7 +6,11 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 11:22:07 by rhernand          #+#    #+#             */
+<<<<<<< HEAD:src/utils.c
 /*   Updated: 2025/03/27 20:08:17 by rhernand         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/30 16:52:53 by rhernand         ###   ########.fr       */
+>>>>>>> exit:philo/src/utils.c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +44,24 @@ int	ft_atoi(const char *str)
 	return (n * sign);
 }
 
-void	ft_usleep(uint64_t ms)
+void	ft_usleep(uint64_t ms, t_data *data)
 {
 	uint64_t	start;
 
-	start = ft_timestamp();
-	while (start + ms > ft_timestamp())
+	start = ft_timestamp(data);
+	while (start + ms > ft_timestamp(data))
 		usleep(1000);
 }
 
-uint64_t	ft_timestamp(void)
+uint64_t	ft_timestamp(t_data *data)
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
+<<<<<<< HEAD:src/utils.c
 	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
 }
+=======
+	return ((tv.tv_sec * 1000 + tv.tv_usec / 1000) - data->start);
+}
+>>>>>>> exit:philo/src/utils.c
