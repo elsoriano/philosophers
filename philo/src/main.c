@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:28:19 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/30 16:54:16 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:17:29 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	ft_forensics(t_data *data)
 	while (i < data->n_philo)
 	{
 		pthread_mutex_lock(&(data->lock));
-		if (data->philos[i].last_meal + data->ttd < ft_timestamp(data) && \
-					data->philos[i].eating == 0)
+		if (data->philos[i].last_meal + data->ttd < ft_timestamp(data)
+			&& data->philos[i].eating == 0)
 		{
 			data->dead = 1;
 			printf("%ld %d died\n", ft_timestamp(data), i + 1);
@@ -72,8 +72,8 @@ int	ft_init_threads(t_data *data)
 	i = 0;
 	while (i < data->n_philo)
 	{
-		if (pthread_create(&(data->threads[i]), NULL, \
-			ft_routine, &(data->philos[i])))
+		if (pthread_create(&(data->threads[i]), NULL,
+				ft_routine, &(data->philos[i])))
 		{
 			printf("Error in pthread_create\n");
 			return (1);

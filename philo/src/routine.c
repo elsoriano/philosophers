@@ -6,7 +6,7 @@
 /*   By: rhernand <rhernand@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:32:12 by rhernand          #+#    #+#             */
-/*   Updated: 2025/03/30 16:55:43 by rhernand         ###   ########.fr       */
+/*   Updated: 2025/04/25 11:18:38 by rhernand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	ft_eat(t_philo *philo)
 	if (!philo->data->dead)
 	{
 		philo->last_meal = ft_timestamp(philo->data);
-		printf("%ld %d has taken a fork\n", \
+		printf("%ld %d has taken a fork\n",
 			ft_timestamp(philo->data), philo->id);
-		printf("%ld %d has taken a fork\n", \
+		printf("%ld %d has taken a fork\n",
 			ft_timestamp(philo->data), philo->id);
 		printf("%ld %d is eating\n", ft_timestamp(philo->data), philo->id);
 		philo->eating = 1;
